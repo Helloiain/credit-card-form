@@ -1,21 +1,11 @@
 import React, { useState } from "react";
 import "./style/form.css";
 
-const Form = () => {
-  const initialFormState = {
-    cardNumber: "",
-    cardName: "",
-    expirationMonth: "",
-    expirationYear: "",
-    cvv: ""
-  };
-
-  const [form, setForm] = useState(initialFormState);
-
+const Form = props => {
   const handleInputChange = event => {
     const { name, value } = event.target;
 
-    setForm({ ...form, [name]: value });
+    props.setForm({ ...props.form, [name]: value });
   };
 
   return (
@@ -27,7 +17,7 @@ const Form = () => {
             type="text"
             name="cardNumber"
             className="card-number"
-            value={form.cardNumber}
+            value={props.form.cardNumber}
             onChange={handleInputChange}
           />
         </div>
@@ -37,7 +27,7 @@ const Form = () => {
             type="text"
             name="cardName"
             className="card-name"
-            value={form.cardName}
+            value={props.form.cardName}
             onChange={handleInputChange}
           />
         </div>
@@ -47,7 +37,7 @@ const Form = () => {
             type="text"
             name="expirationMonth"
             className="date"
-            value={form.expirationMonth}
+            value={props.form.expirationMonth}
             onChange={handleInputChange}
           >
             <option value="" disabled>
@@ -70,7 +60,7 @@ const Form = () => {
             type="text"
             name="expirationYear"
             className="date"
-            value={form.expirationYear}
+            value={props.form.expirationYear}
             onChange={handleInputChange}
           >
             <option value="" disabled>
@@ -94,7 +84,7 @@ const Form = () => {
             type="text"
             name="cvv"
             className="cvv"
-            value={form.cvv}
+            value={props.form.cvv}
             onChange={handleInputChange}
           />
         </div>
