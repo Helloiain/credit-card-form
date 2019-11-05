@@ -1,13 +1,7 @@
-import React, { useState } from "react";
-import "./style/form.css";
+import React from "react";
+import "./assets/styles/form.css";
 
 const Form = props => {
-  const handleInputChange = event => {
-    const { name, value } = event.target;
-
-    props.setForm({ ...props.form, [name]: value });
-  };
-
   return (
     <div className="form-container">
       <form>
@@ -15,10 +9,11 @@ const Form = props => {
           <label>Card Number</label>
           <input
             type="text"
+            maxLength="16"
             name="cardNumber"
-            className="card-number"
-            value={props.form.cardNumber}
-            onChange={handleInputChange}
+            className="form-number"
+            value={props.card.cardNumber}
+            onChange={props.handleInputChange}
           />
         </div>
         <div className="form-inputs">
@@ -26,9 +21,9 @@ const Form = props => {
           <input
             type="text"
             name="cardName"
-            className="card-name"
-            value={props.form.cardName}
-            onChange={handleInputChange}
+            className="form-name"
+            value={props.card.cardName}
+            onChange={props.handleInputChange}
           />
         </div>
         <div className="form-inputs">
@@ -37,8 +32,8 @@ const Form = props => {
             type="text"
             name="expirationMonth"
             className="date"
-            value={props.form.expirationMonth}
-            onChange={handleInputChange}
+            value={props.card.expirationMonth}
+            onChange={props.handleInputChange}
           >
             <option value="" disabled>
               Month
@@ -60,8 +55,8 @@ const Form = props => {
             type="text"
             name="expirationYear"
             className="date"
-            value={props.form.expirationYear}
-            onChange={handleInputChange}
+            value={props.card.expirationYear}
+            onChange={props.handleInputChange}
           >
             <option value="" disabled>
               Year
@@ -81,11 +76,11 @@ const Form = props => {
           </select>
           <label>CVV</label>
           <input
-            type="text"
+            type="number"
             name="cvv"
             className="cvv"
-            value={props.form.cvv}
-            onChange={handleInputChange}
+            value={props.card.cvv}
+            onChange={props.handleInputChange}
           />
         </div>
         <input className="submit" type="submit" />

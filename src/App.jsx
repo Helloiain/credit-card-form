@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Card from "../src/components/Card.jsx";
 import Form from "../src/components/Form.jsx";
+import "./components/assets/scripts/index.js";
 
 function App() {
   const initialCardState = {
@@ -12,10 +13,26 @@ function App() {
   };
 
   const [card, setCard] = useState(initialCardState);
+
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+
+    setCard({ ...card, [name]: value });
+
+    if (event.target.name === "cardNumber") {
+      let str = document.getElementById("card-number").innerHTML;
+      var newStr = str.replace(
+        /\*/,
+        event.target.value.charAt(event.target.value.length - 1)
+      );
+      document.getElementById("card-number").innerHTML = newStr;
+    }
+  };
+
   return (
     <div className="App">
-      <Card />
-      <Form form={card} setForm={setCard} />
+      <Card card={card} />
+      <Form card={card} handleInputChange={handleInputChange} />
     </div>
   );
 }
