@@ -76,7 +76,8 @@ const Form = props => {
           </select>
           <label>CVV</label>
           <input
-            type="number"
+            type="text"
+            maxLength="3"
             name="cvv"
             className="cvv"
             value={props.card.cvv}

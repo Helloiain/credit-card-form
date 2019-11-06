@@ -5,8 +5,8 @@ import rfid from "./assets/images/rfid.png";
 
 const Card = props => {
   return (
-    <div className="card">
-      <div className="card-inner">
+    <div id="card" className="card">
+      <div id="card-inner" className="card-inner">
         <div className="card-front">
           <img className="rfid" src={rfid}></img>
           <div className="card-number-container">
@@ -37,8 +37,10 @@ const Card = props => {
           </div>
         </div>
         <div className="card-back">
-          <label>CVV</label>
-          <span>{props.card.cvv}</span>
+          <div className="mag-strip"></div>
+          <label className="cvv-label">
+            CVV<span className="CVV">{props.card.cvv}</span>
+          </label>
         </div>
       </div>
     </div>
