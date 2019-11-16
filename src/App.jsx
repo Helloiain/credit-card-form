@@ -4,95 +4,35 @@ import Form from "../src/components/Form.jsx";
 import "./components/assets/scripts/index.js";
 
 function App() {
-  const initialState = {
-    cardNumber: "**** **** **** ****",
-    cardName: "FULL NAME",
+  const initialCardState = {
+    cardNumber: "",
+    cardName: "",
     expirationMonth: "",
     expirationYear: "",
-    cvv: "",
-    isCardFlipped: false,
-    currentFocusedElm: null
+    cvv: ""
   };
 
-  const [state, setState] = useState(initialState);
+  const [card, setCard] = useState(initialCardState);
 
-  const updateStateValue = ({ name, value }) => {
-    setState({
-      ...state,
-      [name]: value || initialState[name]
-    });
-  };
+  const handleInputChange = event => {
+    const { name, value } = event.target;
 
-  const {
-    cardNumber,
-    cardHolder,
-    cardMonth,
-    cardYear,
-    cardCvv,
-    isCardFlipped
-  } = state;
-  let { currentFocusedElm } = state;
+    setCard({ ...card, [name]: value });
 
-  //references for the Form Inputs
-  let formFieldsRefObj = {
-    cardNumber: useRef(),
-    cardHolder: useRef(),
-    cardDate: useRef(),
-    cardCvv: useRef()
-  };
-
-  let onCardElementClick = key => {
-    focusFormFieldByKey(key);
-  };
-
-  let focusFormFieldByKey = key => {
-    formFieldsRefObj[key].current.focus();
-  };
-
-  //references for the Card DIV elements
-  let cardElementsRef = {
-    cardNumber: null,
-    cardHolder: null,
-    cardDate: null
-  };
-
-  let onCardFormInputFocus = (_event, inputName) => {
-    setState({
-      ...state,
-      currentFocusedElm: cardElementsRef[inputName]
-    });
-  };
-
-  let onCardInputBlur = event => {
-    setState({
-      ...state,
-      currentFocusedElm: null
-    });
+    if (event.target.name === "cardNumber") {
+      let str = document.getElementById("card-number").innerHTML;
+      var newStr = str.replace(
+        /\*/,
+        event.target.value.charAt(event.target.value.length - 1)
+      );
+      document.getElementById("card-number").innerHTML = newStr;
+    }
   };
 
   return (
     <div className="App">
-      <Card
-        onUpdateStateValue={updateStateValue}
-        cardNumberRef={formFieldsRefObj.cardNumber}
-        cardHolderRef={formFieldsRefObj.cardHolder}
-        cardDateRef={formFieldsRefObj.cardDate}
-        onCardInputFocus={onCardFormInputFocus}
-        onCardInputBlur={onCardInputBlur}
-      />
-      <Form
-        cardNumber={cardNumber}
-        cardHolder={cardHolder}
-        cardMonth={cardMonth}
-        cardYear={cardYear}
-        cardCvv={cardCvv}
-        isCardFlipped={isCardFlipped}
-        currentFocusedEml={currentFocusedElm}
-        onCardElementClick={onCardElementClick}
-        cardNumberRef={node => (cardElementsRef["cardNumber"] = node)}
-        cardHolderRef={node => (cardElementsRef["cardHolder"] = node)}
-        cardDateRef={node => (cardElementsRef["cardDate"] = node)}
-      />
+      <Card card={card} />
+      <Form card={card} handleInputChange={handleInputChange} />
     </div>
   );
 }
